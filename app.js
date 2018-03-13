@@ -27,4 +27,4 @@ function movePlayer(e){
 	context.fill(); // Fylla kubbinn af lit
 	context.stoke(); // Teikna kubbinn á nýja staðsetninguna
 }
-
+var playGame         
