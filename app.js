@@ -27,4 +27,22 @@ function movePlayer(e){
 	context.fill(); // Fylla kubbinn af lit
 	context.stoke(); // Teikna kubbinn á nýja staðsetninguna
 }
-var playGame         
+function obstacle(x_postion, y_position, width, height){
+	this.x_postion = x_postion;
+	this.y_position = y_position;
+	this.width = width;
+	this.height = height;
+
+	this.renderObstacle = function(){
+		context.fillRect(this.x_postion, this.y_position += 5, this.width, this.height);
+	};
+
+	this.animation = function(){
+		context.clearRect(0, 0, canvasWidth, canvasHeight);
+		this.renderObstacle();
+	};
+
+	this.animationInterval = setInterval(this.animation(), 30);
+}       
+
+var obstacle_1 = new obstacle(0, -10, 100, 20); // Hello
