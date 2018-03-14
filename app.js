@@ -1,9 +1,11 @@
 "use strict";
 
+
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 var canvasWidth = context.canvas.width;
 var canvasHeight = context.canvas.height;
+/*
 var playerXpostion = 240;
 var playerYpostion = 420;
 context.fillStyle = "#FF0000"; // Liturinn á kubbinn
@@ -27,22 +29,34 @@ function movePlayer(e){
 	context.fill(); // Fylla kubbinn af lit
 	context.stoke(); // Teikna kubbinn á nýja staðsetninguna
 }
-function obstacle(x_postion, y_position, width, height){
-	this.x_postion = x_postion;
-	this.y_position = y_position;
-	this.width = width;
-	this.height = height;
+*/
+var obstacles = []
+var space = -50;
+for (var i = 0; i < 45; i++){
+	var obstacle = new create_obstacle(0, space, getRandomInt(50, 335), 20);
+	space -= 200;
+	obstacles.push(obstacle);
+}
 
-	this.renderObstacle = function(){
-		context.fillRect(this.x_postion, this.y_position += 5, this.width, this.height);
-	};
+function create_obstacle(x_postion, y_position, width, height){
+	this.x_postion = x_postion,
+	this.y_position = y_position,
+	this.width = width,
+	this.height = height
+}    
 
-	this.animation = function(){
-		context.clearRect(0, 0, canvasWidth, canvasHeight);
-		this.renderObstacle();
-	};
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-	this.animationInterval = setInterval(this.animation(), 30);
-}       
-
-var obstacle_1 = new obstacle(0, -10, 100, 20); // Hello
+function render_obstacles(){
+	for (var i = 0; i < obstacles.length; i++){
+		context.fill();
+		context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 5, obstacles[i].width, obstacles[i].height);
+	}
+}
+function animation(){
+	context.clearRect(0, 0, canvasWidth, canvasHeight);
+	render_obstacles();
+}
+setInterval(animation, 30);
