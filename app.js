@@ -52,9 +52,14 @@ function getRandomInt(min, max) {
 
 function render_obstacles(){
 	for (var i = 0; i < obstacles.length; i++){
-		context.fill();
-		context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 5, obstacles[i].width, obstacles[i].height);
-		context.clearRect(tolur[i], obstacles[i].y_position, 150, 20)
+		if (obstacles[i].y_position === 500){
+			context.clearRect(obstacles[i].x_postion, obstacles[i].y_position, obstacles[i].width, obstacles[i].height);
+		}
+		else{
+			context.fill();
+			context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 5, obstacles[i].width, obstacles[i].height);
+			context.clearRect(tolur[i], obstacles[i].y_position, 150, 20);
+		}
 	}
 }
 function animation(){
