@@ -30,35 +30,35 @@ function movePlayer(e){
 	context.stoke(); // Teikna kubbinn á nýja staðsetninguna
 }
 */
-var obstacles = [{x_postion: 0, y_position: -500, width: canvasWidth, height: 20}];
-/*
+var obstacles = [];
+var tolur = [];
 var space = -50;
-for (var i = 0; i < 45; i++){
-	var obstacle = new create_obstacle(0, space, getRandomInt(50, 335), 20);
+
+for (var i = 0; i < 100; i++){
+	var obstacle = new create_obstacle(0, space, canvasWidth, 20);
 	space -= 200;
 	obstacles.push(obstacle);
+	tolur.push(getRandomInt(60, 320));
 }
-
 function create_obstacle(x_postion, y_position, width, height){
 	this.x_postion = x_postion,
 	this.y_position = y_position,
 	this.width = width,
 	this.height = height
 }    
-
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-*/
+
 function render_obstacles(){
 	for (var i = 0; i < obstacles.length; i++){
 		context.fill();
 		context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 5, obstacles[i].width, obstacles[i].height);
-		context.clearRect(100, obstacles[i].y_position, 150, 20)
+		context.clearRect(tolur[i], obstacles[i].y_position, 150, 20)
 	}
 }
 function animation(){
 	context.clearRect(0, 0, canvasWidth, canvasHeight);
 	render_obstacles();
 }
-setInterval(animation, 50);
+setInterval(animation, 20);
