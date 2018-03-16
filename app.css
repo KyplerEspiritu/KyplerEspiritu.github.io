@@ -1,8 +1,9 @@
-
 body{
 	text-align: center;
+	background: #000000; 
 }
 canvas{
-	border: 1px solid black;
+	border: 1px solid #ffffff;
+	cursor: none;
 }
                      

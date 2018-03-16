@@ -5,41 +5,31 @@ var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 var canvasWidth = context.canvas.width;
 var canvasHeight = context.canvas.height;
-/*
+
 var playerXpostion = 240;
 var playerYpostion = 420;
-context.fillStyle = "#FF0000"; // Liturinn á kubbinn
-context.fillRect(playerXpostion, playerYpostion, 20, 20); // playerXpostion er hvar kubburinn er staddur lárétt, playerYpostion lóðrétt, hvað kubburinn er langur, hvað kubburinn er hár  
-window.addEventListener("keydown", movePlayer); // EventListener sem bíður eftir að notandinn ýtti á takka á lyklaborðinu 
 
-function movePlayer(e){
-	if (e.keyCode == 39){ // Þegar notandinn ýtir á hægri ör
-		if (playerXpostion < canvasWidth - 20){ // Ef kubburinn er ekki kominn alveg til hægri
-			playerXpostion += 10; // Kubburinn færist til hægri
-		}
+context.fillStyle = "#035c70"; // Liturinn á kubbinn
+context.fillRect(playerXpostion, playerYpostion, 20, 20); // playerXpostion er hvar kubburinn er staddur lárétt, playerYpostion lóðrétt, hvað kubburinn er langur, hvað kubburinn er hár  
+window.addEventListener("mousemove", function(e){
+	var mouseX = e.clientX - context.canvas.offsetLeft;
+	if (mouseX <= canvasWidth - 19 && mouseX >= 0){ // Ef kubburinn er ekki kominn alveg til hægri eða vinstri
+		playerXpostion = mouseX; // Kubburinn 'eltir' músina
 	}
-	if (e.keyCode == 37){ // Þegar notadninn ýtir á vinstri ör
-		if (playerXpostion >= 10){ // Ef kubburinn er ekki kominn alveg til vinstri
-			playerXpostion -= 10; // Kubburinn færist til vinstri
-		}
-	}
-	context.clearRect(0, 0, canvasWidth, canvasHeight); // Þetta er fyrir svo kubburinn skilji ekki 'spor' þegar þú er að færa þig
-	context.fillRect(playerXpostion, playerYpostion, 20, 20); // Kubburinn fær nýja staðsetningu
-	context.fillStyle = "#FF0000";
-	context.fill(); // Fylla kubbinn af lit
-	context.stoke(); // Teikna kubbinn á nýja staðsetninguna
-}
-*/
-var obstacles = [];
+
+}); // EventListener 'hlustar' á eða fylgist með hreyfingu músins
+
+var obstacles = [];  
 var tolur = [];
 var space = -50;
 
 for (var i = 0; i < 100; i++){
-	var obstacle = new create_obstacle(0, space, canvasWidth, 20);
-	space -= 200;
+	var obstacle = new create_obstacle(0, space, canvasWidth, 10);
+	space -= 250;
 	obstacles.push(obstacle);
-	tolur.push(getRandomInt(60, 320));
+	tolur.push(getRandomInt(60, canvasWidth - 250));
 }
+
 function create_obstacle(x_postion, y_position, width, height){
 	this.x_postion = x_postion,
 	this.y_position = y_position,
@@ -52,13 +42,14 @@ function getRandomInt(min, max) {
 
 function render_obstacles(){
 	for (var i = 0; i < obstacles.length; i++){
-		if (obstacles[i].y_position === 500){
+		if (obstacles[i].y_position >= canvasHeight){
 			context.clearRect(obstacles[i].x_postion, obstacles[i].y_position, obstacles[i].width, obstacles[i].height);
 		}
 		else{
 			context.fill();
-			context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 5, obstacles[i].width, obstacles[i].height);
-			context.clearRect(tolur[i], obstacles[i].y_position, 150, 20);
+			context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 1.5, obstacles[i].width, obstacles[i].height);
+			context.fillRect(playerXpostion, playerYpostion, 20, 20); // Kubburinn fær nýja staðsetningu
+			context.clearRect(tolur[i], obstacles[i].y_position - 5, 200, 20);
 		}
 	}
 }
@@ -66,4 +57,4 @@ function animation(){
 	context.clearRect(0, 0, canvasWidth, canvasHeight);
 	render_obstacles();
 }
-setInterval(animation, 20);
+setInterval(animation, 5);
