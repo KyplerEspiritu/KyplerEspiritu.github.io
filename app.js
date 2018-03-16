@@ -7,14 +7,12 @@ var canvasWidth = context.canvas.width;
 var canvasHeight = context.canvas.height;
 
 var playerXpostion = 240;
-var playerYpostion = 420;
+var playerYpostion = 800;
 
-context.fillStyle = "#035c70"; // Liturinn á kubbinn
-context.fillRect(playerXpostion, playerYpostion, 20, 20); // playerXpostion er hvar kubburinn er staddur lárétt, playerYpostion lóðrétt, hvað kubburinn er langur, hvað kubburinn er hár  
 window.addEventListener("mousemove", function(e){
 	var mouseX = e.clientX - context.canvas.offsetLeft;
-	if (mouseX <= canvasWidth - 19 && mouseX >= 0){ // Ef kubburinn er ekki kominn alveg til hægri eða vinstri
-		playerXpostion = mouseX; // Kubburinn 'eltir' músina
+	if (mouseX <= canvasWidth - 10 && mouseX >= 10){ // Ef hringurinn er ekki kominn alveg til hægri eða vinstri
+		playerXpostion = mouseX; // Hringurinn 'eltir' músina
 	}
 
 }); // EventListener 'hlustar' á eða fylgist með hreyfingu músins
@@ -46,14 +44,19 @@ function render_obstacles(){
 			context.clearRect(obstacles[i].x_postion, obstacles[i].y_position, obstacles[i].width, obstacles[i].height); 
 		}
 		else{
-			context.fill(); // Fillir kubbinn og obstalces með ákveðnum lit
+			context.fill(); // Fillir hringinn og obstalces með ákveðnum lit
+			context.fillStyle = "#035c70"; // Litur fyrir context
 			context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 1.5, obstacles[i].width, obstacles[i].height); // Obstacles að færast
-			context.fillRect(playerXpostion, playerYpostion, 20, 20); // Kubburinn að færast
-			context.clearRect(randomNumbers[i], obstacles[i].y_position - 5, 200, 20); // Eyðir hluta af obstacle
+			context.fillStyle = "#989e00"; // Nýr litur
+			context.beginPath();
+			context.arc(playerXpostion, playerYpostion, 10, 0, 2 * Math.PI, false); // Hringurinn að færast
+			context.stroke();
+
+			context.clearRect(randomNumbers[i], obstacles[i].y_position - 5, 100, 20); // Eyðir hluta af obstacle
 		}
 	}
 }
-function animation(){
+function animation(){ // Fall fyrir hreyfingar
 	context.clearRect(0, 0, canvasWidth, canvasHeight);
 	render_obstacles();
 }
