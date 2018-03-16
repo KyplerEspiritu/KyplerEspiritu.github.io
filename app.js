@@ -20,14 +20,14 @@ window.addEventListener("mousemove", function(e){
 }); // EventListener 'hlustar' á eða fylgist með hreyfingu músins
 
 var obstacles = [];  
-var tolur = [];
-var space = -50;
+var randomNumbers = [];
+var obstacleSpace = -50;
 
 for (var i = 0; i < 100; i++){
-	var obstacle = new create_obstacle(0, space, canvasWidth, 10);
-	space -= 250;
-	obstacles.push(obstacle);
-	tolur.push(getRandomInt(60, canvasWidth - 250));
+	var newObstacle = new create_obstacle(0, obstacleSpace, canvasWidth, 10);
+	obstacleSpace -= 250;
+	obstacles.push(newObstacle);
+	randomNumbers.push(getRandomInt(60, canvasWidth - 250));
 }
 
 function create_obstacle(x_postion, y_position, width, height){
@@ -49,7 +49,7 @@ function render_obstacles(){
 			context.fill();
 			context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 1.5, obstacles[i].width, obstacles[i].height);
 			context.fillRect(playerXpostion, playerYpostion, 20, 20); // Kubburinn fær nýja staðsetningu
-			context.clearRect(tolur[i], obstacles[i].y_position - 5, 200, 20);
+			context.clearRect(randomNumbers[i], obstacles[i].y_position - 5, 200, 20);
 		}
 	}
 }
