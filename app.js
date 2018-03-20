@@ -1,13 +1,12 @@
 "use strict";
            
-
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 var canvasWidth = context.canvas.width;
 var canvasHeight = context.canvas.height;
 
 var playerXpostion = 240;
-var playerYpostion = 675;
+var playerYpostion = 820;
 
 window.addEventListener("mousemove", function(e){
 	var mouseX = e.clientX - context.canvas.offsetLeft;
@@ -45,12 +44,14 @@ function getRandomInt(min, max) { // Fall sem tekur inn lægstu oh hæstu tölu 
 function render_obstacles(){
 	for (var i = 0; i < obstacles.length; i++){
 		if (playerXpostion + 15 >= obstacles[i].x_postion && playerXpostion <= obstacles[i].x_postion + obstacles[i].width && playerYpostion >= obstacles[i].y_position && playerYpostion <= obstacles[i].y_position + obstacles[i].height){
-			context.clearRect(0, 0, canvasWidth, canvasHeight);
+			context.fillStyle = "rgba(255, 255, 255, 1)";
+			context.textAlign = "center";
+			context.font = "100px Arial";
+			context.fillText("GAME OVER", canvasWidth / 2, canvasHeight / 2);
 			clearInterval(animationInterval);
-			break;
 		}
 		context.fillStyle = "#035c70"; // Litur fyrir context
-		context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 3, obstacles[i].width, obstacles[i].height); // Obstacles að færast
+		context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 3.5, obstacles[i].width, obstacles[i].height); // Obstacles að færast
 		context.fillStyle = "#989e00"; // Nýr litur
 		context.beginPath();
 		context.fillRect(playerXpostion, playerYpostion, 15, 15); // Hringurinn að færast
