@@ -30,13 +30,14 @@ window.addEventListener("mousemove", function(e){
 
 }); // EventListener 'hlustar' á eða fylgist með hreyfingu músins
 
+var score = 0;
 var obstacleHeight = 10;
 var obstacles = []; 
 
 var obstacleSpace = -50;
 for (var i = 0; i < 100; i++){ 
 	var obstacleWidthLeft = getRandomInt(60, canvasWidth - 250); 
-	var obstacleWidthSpace = obstacleWidthLeft + 100;
+	var obstacleWidthSpace = obstacleWidthLeft + 75;
 	var leftObstacle = new create_obstacle(0, obstacleSpace, obstacleWidthLeft, obstacleHeight); // Nýtt obstacle
 	var rightObstacle = new create_obstacle(obstacleWidthSpace, obstacleSpace, canvasWidth, obstacleHeight); // Nýtt obstacle
 	obstacleSpace -= 250; // Hvert nýtt obstacle verður 250px fyrir ofan fyrri obstacle
@@ -64,12 +65,20 @@ function render_obstacles(){
 			canvas.setAttribute("class", "game");
 			clearInterval(animationInterval);
 		}
+
+		if (playerXpostion <= obstacles[i].x_postion){
+			score++;
+		}
+
 		context.fillStyle = "#035c70"; // Litur fyrir context
 		context.fillRect(obstacles[i].x_postion, obstacles[i].y_position += 3.5, obstacles[i].width, obstacles[i].height); // Obstacles að færast
 		context.fillStyle = "#989e00"; // Nýr litur
 		context.beginPath();
 		context.fillRect(playerXpostion, playerYpostion, 15, 15); // Hringurinn að færast
 		context.stroke();
+		context.fillStyle = "#ffffff";
+		context.font = "50px Arial";
+		context.fillText("Score: " + score, 20, 50);
 	}
 }
 
