@@ -1,8 +1,39 @@
 body{
-	text-align: center;
 	background: #000000; 
+	text-align: center;
+	color: white;
+}
+.allGame{
+	position: relative;
+}
+.game{
+	cursor: default;
+	opacity: 0.2;
 }
 canvas{
 	border: 1px solid #ffffff;
 	cursor: none;
+}
+.message{
+	position: absolute;
+	top:39.5%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	color: white;
+	font-size: 100px;
+	font-family: Arial;
+}
+.restartDiv{
+	position: absolute;
+	top: 52.5%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	color: #fff600;
+	font-size: 40px;
+	font-family: Arial;
+	cursor: pointer;
 }

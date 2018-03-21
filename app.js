@@ -1,6 +1,20 @@
 "use strict";
-           
+
+
+var game = document.getElementById("game");   
 var canvas = document.getElementById("canvas");
+
+var div_message = document.createElement("div");
+div_message.setAttribute("class", "message");
+var game_over_message = document.createTextNode("GAME OVER");
+div_message.appendChild(game_over_message);
+
+var div_restart = document.createElement("span");
+var restart_message = document.createTextNode("restart");
+div_restart.setAttribute("class", "restartDiv");
+div_restart.setAttribute("onClick", "window.location.reload()");
+div_restart.appendChild(restart_message);
+
 var context = canvas.getContext("2d");
 var canvasWidth = context.canvas.width;
 var canvasHeight = context.canvas.height;
@@ -30,11 +44,12 @@ for (var i = 0; i < 100; i++){
 	obstacles.push(rightObstacle); 
 }
 
+
 function create_obstacle(x_postion, y_position, width, height){ // Fall sem býr til obstacle
 	this.x_postion = x_postion,
 	this.y_position = y_position,
 	this.width = width,
-	this.height = height
+	this.height = height;
 }
  
 function getRandomInt(min, max) { // Fall sem tekur inn lægstu oh hæstu tölu og finnur heila tölu á milli þeirra eða hæsta eða lægsta talan sjálf
@@ -44,10 +59,9 @@ function getRandomInt(min, max) { // Fall sem tekur inn lægstu oh hæstu tölu 
 function render_obstacles(){
 	for (var i = 0; i < obstacles.length; i++){
 		if (playerXpostion + 15 >= obstacles[i].x_postion && playerXpostion <= obstacles[i].x_postion + obstacles[i].width && playerYpostion >= obstacles[i].y_position && playerYpostion <= obstacles[i].y_position + obstacles[i].height){
-			context.fillStyle = "rgba(255, 255, 255, 1)";
-			context.textAlign = "center";
-			context.font = "100px Arial";
-			context.fillText("GAME OVER", canvasWidth / 2, canvasHeight / 2);
+			game.appendChild(div_message);
+			game.appendChild(div_restart);
+			canvas.setAttribute("class", "game");
 			clearInterval(animationInterval);
 		}
 		context.fillStyle = "#035c70"; // Litur fyrir context
@@ -64,3 +78,4 @@ function animation(){ // Fall fyrir hreyfingar
 	render_obstacles();
 }
 var animationInterval = setInterval(animation, 10);
+
