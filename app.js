@@ -1,41 +1,41 @@
 "use strict";
 
 
-var game = document.getElementById("game");   
-var canvas = document.getElementById("canvas");
+let game = document.getElementById("game");   
+let canvas = document.getElementById("canvas");
 
-var score = 0; // Byrjunar stig notanda
-var obstacleHeight = 10; // Hæð á obstacles
-var obstacles = []; // Listi sem mun halda öll obstacles
-var obstacleSpace = -50; // Hvar fyrsti obstacle verður staddur lóðrétt
+let score = 0; // Byrjunar stig notanda
+let obstacleHeight = 10; // Hæð á obstacles
+let obstacles = []; // Listi sem mun halda öll obstacles
+let obstacleSpace = -50; // Hvar fyrsti obstacle verður staddur lóðrétt
 
 
 // "GAME OVER" texti
-var div_message = document.createElement("div"); // Nýtt div element
+let div_message = document.createElement("div"); // Nýtt div element
 div_message.setAttribute("class", "message"); // Div element fær classan message
-var game_over_message = document.createTextNode("GAME OVER"); 
+let game_over_message = document.createTextNode("GAME OVER"); 
 div_message.appendChild(game_over_message); // Div element fær texta
 
 // "restart" takki
-var div_restart = document.createElement("span"); // Nýtt span element
-var restart_message = document.createTextNode("restart");
+let div_restart = document.createElement("span"); // Nýtt span element
+let restart_message = document.createTextNode("restart");
 div_restart.setAttribute("class", "restartDiv"); // Span element fær classan restartDiv
 div_restart.setAttribute("onClick", "window.location.reload()"); // Einning fær span element onclick sem refreshar síðuna
 div_restart.appendChild(restart_message); // Span element fær texta
 
-var context = canvas.getContext("2d");
-var canvasWidth = context.canvas.width; 
-var canvasHeight = context.canvas.height;
+let context = canvas.getContext("2d");
+let canvasWidth = context.canvas.width; 
+let canvasHeight = context.canvas.height;
 
 // Hérna er byrjunar staður notanda
-var playerXpostion = 240; 
-var playerYpostion = 820;
+let playerXpostion = 240; 
+let playerYpostion = 820;
 
-for (var i = 0; i < 100; i++){  // For loopa sem býr til 100 obstacles og lætur í obstacles listann
-	var obstacleWidthLeft = getRandomInt(60, canvasWidth - 250); // Random tala. Þetta er fyrir bilið að vera á random stað.
-	var obstacleWidthSpace = obstacleWidthLeft + 100; // Bilið er 100px
-	var leftObstacle = new create_obstacle(0, obstacleSpace, obstacleWidthLeft, obstacleHeight); // Vinstri obstacle
-	var rightObstacle = new create_obstacle(obstacleWidthSpace, obstacleSpace, canvasWidth, obstacleHeight); // Hægri obstacle
+for (let i = 0; i < 100; i++){  // For loopa sem býr til 100 obstacles og lætur í obstacles listann
+	let obstacleWidthLeft = getRandomInt(60, canvasWidth - 250); // Random tala. Þetta er fyrir bilið að vera á random stað.
+	let obstacleWidthSpace = obstacleWidthLeft + 100; // Bilið er 100px
+	let leftObstacle = new create_obstacle(0, obstacleSpace, obstacleWidthLeft, obstacleHeight); // Vinstri obstacle
+	let rightObstacle = new create_obstacle(obstacleWidthSpace, obstacleSpace, canvasWidth, obstacleHeight); // Hægri obstacle
 	obstacleSpace -= 250; // Hvert nýtt obstacle verður 250px fyrir ofan fyrri obstacle
 	obstacles.push(leftObstacle); // Vinstri obstacle settur í Array
 	obstacles.push(rightObstacle);  // Hægri obstacle settur í Array
@@ -54,9 +54,9 @@ function getRandomInt(min, max) { // Fall sem tekur inn lægstu oh hæstu tölu 
 }
 
 function render_obstacles(){
-	for (var i = 0; i < obstacles.length; i++){
-		if (obstacles[i].y_position >= canvasHeight){
-			obstacles.splice(i, 1);
+	for (let i = 0; i < obstacles.length; i++){
+		if (obstacles[i].y_position >= canvasHeight){ // Ef obstacles fara yfir útaf canvas boundaries
+			obstacles.splice(i, 1); // Eyðast það úr listanum og canvas
 		}
 		if (playerXpostion + 15 >= obstacles[i].x_postion && playerXpostion <= obstacles[i].x_postion + obstacles[i].width && playerYpostion >= obstacles[i].y_position && playerYpostion <= obstacles[i].y_position + obstacles[i].height){ // Ef þegar notandinn klessir á obstacles
 			game.appendChild(div_message); // "GAME OVER" texti birtist
@@ -81,10 +81,10 @@ function animation(){ // Fall fyrir hreyfingar
 	context.clearRect(0, 0, canvasWidth, canvasHeight);
 	render_obstacles();
 }
-var animationInterval = setInterval(animation, 10);
+let animationInterval = setInterval(animation, 10);
 
 window.addEventListener("mousemove", function(e){ // EventListener 'hlustar' á eða fylgist með hreyfingu músins
-	var mouseX = e.clientX - context.canvas.offsetLeft;
+	let mouseX = e.clientX - context.canvas.offsetLeft;
 	if (mouseX <= canvasWidth - 10 && mouseX >= 10){ // Ef hringurinn er ekki kominn alveg til hægri eða vinstri
 		playerXpostion = mouseX; // Hringurinn 'eltir' músina
 	}
