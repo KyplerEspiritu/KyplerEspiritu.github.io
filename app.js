@@ -7,7 +7,11 @@ let canvas = document.getElementById("canvas");
 let score = 0; // Byrjunar stig notanda
 let obstacleHeight = 10; // Hæð á obstacles
 let obstacles = []; // Listi sem mun halda öll obstacles
-let obstacleSpace = -50; // Hvar fyrsti obstacle verður staddur lóðrétt
+let obstacleSpace = 200; // Hvar fyrsti obstacle verður staddur lóðrétt
+let obstacleWidthLeft;
+let obstacleWidthSpace;
+let leftObstacle;
+let rightObstacle;
 
 
 // "GAME OVER" texti
@@ -31,12 +35,12 @@ let canvasHeight = context.canvas.height;
 let playerXpostion = 240; 
 let playerYpostion = 820;
 
-for (let i = 0; i < 100; i++){  // For loopa sem býr til 100 obstacles og lætur í obstacles listann
-	let obstacleWidthLeft = getRandomInt(60, canvasWidth - 250); // Random tala. Þetta er fyrir bilið að vera á random stað.
-	let obstacleWidthSpace = obstacleWidthLeft + 100; // Bilið er 100px
-	let leftObstacle = new create_obstacle(0, obstacleSpace, obstacleWidthLeft, obstacleHeight); // Vinstri obstacle
-	let rightObstacle = new create_obstacle(obstacleWidthSpace, obstacleSpace, canvasWidth, obstacleHeight); // Hægri obstacle
-	obstacleSpace -= 250; // Hvert nýtt obstacle verður 250px fyrir ofan fyrri obstacle
+for (let i = 0; i < 7; i++){  // For loopa sem býr til 100 obstacles og lætur í obstacles listann
+	obstacleWidthLeft = getRandomInt(60, canvasWidth - 250); // Random tala. Þetta er fyrir bilið að vera á random stað.
+	obstacleWidthSpace = obstacleWidthLeft + 100; // Bilið er 100px
+	leftObstacle = new create_obstacle(0, obstacleSpace, obstacleWidthLeft, obstacleHeight); // Vinstri obstacle
+	rightObstacle = new create_obstacle(obstacleWidthSpace, obstacleSpace, canvasWidth, obstacleHeight); // Hægri obstacle
+	obstacleSpace -= 200;
 	obstacles.push(leftObstacle); // Vinstri obstacle settur í Array
 	obstacles.push(rightObstacle);  // Hægri obstacle settur í Array
 }   
@@ -56,7 +60,16 @@ function getRandomInt(min, max) { // Fall sem tekur inn lægstu oh hæstu tölu 
 function render_obstacles(){
 	for (let i = 0; i < obstacles.length; i++){
 		if (obstacles[i].y_position >= canvasHeight){ // Ef obstacles fara yfir útaf canvas boundaries
-			obstacles.splice(i, 1); // Eyðast það úr listanum og canvas
+			obstacles.splice(0, 2); // Eyðast það úr listanum og canvas
+
+			obstacleWidthLeft = getRandomInt(60, canvasWidth - 250); // Random tala. Þetta er fyrir bilið að vera á random stað.
+			obstacleWidthSpace = obstacleWidthLeft + 100; // Bilið er 100px
+			obstacleSpace = -500;
+			leftObstacle = new create_obstacle(0, obstacleSpace, obstacleWidthLeft, obstacleHeight); // Vinstri obstacle
+			rightObstacle = new create_obstacle(obstacleWidthSpace, obstacleSpace, canvasWidth, obstacleHeight); // Hægri obstacle
+			obstacles.push(leftObstacle); // Vinstri obstacle settur í Array
+			obstacles.push(rightObstacle);  // Hægri obstacle settur í Array
+
 		}
 		if (playerXpostion + 15 >= obstacles[i].x_postion && playerXpostion <= obstacles[i].x_postion + obstacles[i].width && playerYpostion >= obstacles[i].y_position && playerYpostion <= obstacles[i].y_position + obstacles[i].height){ // Ef þegar notandinn klessir á obstacles
 			game.appendChild(div_message); // "GAME OVER" texti birtist
@@ -75,6 +88,7 @@ function render_obstacles(){
 		context.fillText("Score: " + score, 20, 50); // Stig notanda               
 	}
 	score++; // Stiginn að hækka endalaust
+
 }
 
 function animation(){ // Fall fyrir hreyfingar
