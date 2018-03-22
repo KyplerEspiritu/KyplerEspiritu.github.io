@@ -39,7 +39,7 @@ for (var i = 0; i < 100; i++){  // For loopa sem býr til 100 obstacles og lætu
 	obstacleSpace -= 250; // Hvert nýtt obstacle verður 250px fyrir ofan fyrri obstacle
 	obstacles.push(leftObstacle); // Vinstri obstacle settur í Array
 	obstacles.push(rightObstacle);  // Hægri obstacle settur í Array
-}
+}   
 
 
 function create_obstacle(x_postion, y_position, width, height){ // Fall sem býr til obstacle
