@@ -72,7 +72,7 @@ function render_obstacles(){
 		context.stroke();
 		context.fillStyle = "#ffffff";
 		context.font = "50px Arial";
-		context.fillText("Score: " + score, 20, 50); // Stig notanda
+		context.fillText("Score: " + score, 20, 50); // Stig notanda               
 	}
 	score++; // Stiginn að hækka endalaust
 }
