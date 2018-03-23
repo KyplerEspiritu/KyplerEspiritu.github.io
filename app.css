@@ -8,7 +8,7 @@ body{
 }
 .game{
 	cursor: default;
-	opacity: 0.2;
+	opacity: 0.05;
 }
 canvas{
 	border: 1px solid #ffffff;
@@ -25,9 +25,20 @@ canvas{
 	font-size: 100px;
 	font-family: Arial;
 }
+.scoreDiv{
+	position: absolute;
+	top: 53%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	color: #00ffd8;
+	font-size: 40px;
+	font-family: Arial;
+}
 .restartDiv{
 	position: absolute;
-	top: 52.5%;
+	top: 60%;
 	right: 46.5%;
 	margin: auto;
 	color: #fff600;
